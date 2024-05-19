@@ -1,0 +1,33 @@
+---
+import { createReader } from '@keystatic/core/reader'
+
+import config from '../../keystatic.config'
+import Layout from '../layouts/layout.astro';
+
+const reader = createReader(process.cwd(), config)
+
+const posts = await reader.collections.posts.list()
+---
+
+<Layout title="Keystatic & Astro's Content Collections">
+  <main>
+    <h1>Keystatic ⚡️ + Astro 🚀</h1>
+    <p>
+      This homepage shows how to load data from Astro's content collections.
+    </p>
+    <p>
+      <a href="/keystatic">Click here to visit the Admin UI</a>, or the link
+      below to view a post in the collection.
+    </p>
+    <h2>Posts</h2>
+    <ul>
+      {
+        posts.map(post => (
+          <li>
+						<pre>{JSON.stringify(post)}</pre>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
